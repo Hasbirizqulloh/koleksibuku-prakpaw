@@ -1,0 +1,99 @@
+* {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  background-color: #192655;
+}
+
+.container-fluid .satu {
+  width: 150vh;
+  margin-top: 30px;
+  background-color: #e1aa74;
+}
+
+.container-fluid .dua {
+  width: 150vh;
+  background-color: #e1aa74;
+  margin-bottom: 40px;
+}
+
+/* Navbar */
+.nav-title {
+  width: 150px;
+}
+
+.fs {
+  font-size: 30px;
+  color: #192655;
+  font-weight: 700;
+}
+
+.teks-center {
+  font-size: 24px;
+  color: #192655;
+  font-weight: 600;
+}
+
+.btn {
+  background-color: #192655;
+  border: none;
+}
+/* Navbar */
+
+/* Header */
+.header {
+  height: 300px;
+  background-color: #f3f0ca;
+  border-radius: 10px;
+  margin-top: 30px;
+  margin: 0 18px;
+  color: #192655;
+}
+/* Header */
+
+.movieImage {
+  height: auto;
+  background-color: black;
+  margin: 5px;
+  padding: 4px;
+}
+
+.movieImage .bg {
+  background-color: #192655;
+  height: 180px;
+}
+
+.images {
+  height: 200px;
+}
+
+.tombol button:nth-child(1) {
+  background-color: #3876bf;
+  border: none;
+}
+
+.tombol button:nth-child(2) {
+  background-color: #bb2124;
+  border: none;
+}
+
+.tombol button:hover {
+  background-color: #9fa9bd;
+}
+
+/* Content */
+
+/* .content .buku {
+  background-color: #3876bf;
+  border: #192655 5px solid;
+  color: #fff;
+}
+
+.content .buku img {
+  width: 100%;
+} */
+/* Content */
