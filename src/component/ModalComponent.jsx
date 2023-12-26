@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
+import { BsPlusCircle } from 'react-icons/bs';
 
 function MydModalWithGrid(props) {
   const [newBook, setNewBook] = useState({
@@ -34,13 +35,13 @@ function MydModalWithGrid(props) {
         body: JSON.stringify(newBook),
       });
       const data = await response.json();
-      console.log('New book added:', data);
-      // Optionally, you can perform additional actions after adding the book
-      // such as closing the modal or updating the book list.
+      alert('Buku berhasil ditambahkan!');
+      window.location.reload();
     } catch (error) {
       console.error('Error adding new book:', error);
     }
   };
+
   return (
     <Modal {...props} aria-labelledby="contained-modal-title-vcenter">
       <Modal.Header closeButton>
@@ -135,7 +136,7 @@ const ModalComponent = () => {
   return (
     <>
       <Button variant="primary" onClick={() => setModalShow(true)}>
-        Tambah Buku
+        <BsPlusCircle /> Add Book
       </Button>
 
       <MydModalWithGrid show={modalShow} onHide={() => setModalShow(false)} />

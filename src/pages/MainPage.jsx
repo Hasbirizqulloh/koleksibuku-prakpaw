@@ -9,7 +9,7 @@ const MainPage = () => {
         <div className="container-sm satu border border-white border-5 rounded-top-4 border-bottom-0 min-vh-100">
           <NavbarComponent />
           <div className="header">
-            <div className="text-center fs-1 fw-bold pt-4">Selamat Membaca</div>
+            <div className="text-center fs-1 fw-bold pt-4 mb-5">Koleksi Buku</div>
             <CardComponent />
           </div>
         </div>

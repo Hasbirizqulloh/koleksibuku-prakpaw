@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Container, Row, Col, Image, Button } from 'react-bootstrap';
 import DetailComponent from './DetailComponent';
+import { BsFillTrash3Fill } from 'react-icons/bs';
 
 const CardComponent = () => {
   const [books, setBooks] = useState([]);
@@ -21,16 +22,22 @@ const CardComponent = () => {
 
   const handleDeleteBook = async (bookId) => {
     try {
-      const response = await fetch(`https://api-buku.vercel.app/books/${bookId}`, {
-        method: 'DELETE',
-      });
+      // Ask for confirmation before deleting
+      const confirmDelete = window.confirm('Apakah Anda yakin ingin menghapus buku ini?');
 
-      if (response.ok) {
-        // Jika penghapusan berhasil, perbarui state dengan buku yang telah dihapus
-        const updatedBooks = books.filter((book) => book._id !== bookId);
-        setBooks(updatedBooks);
-      } else {
-        console.error('Gagal menghapus buku');
+      if (confirmDelete) {
+        const response = await fetch(`https://api-buku.vercel.app/books/${bookId}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          // Jika penghapusan berhasil, perbarui state dengan buku yang telah dihapus
+          const updatedBooks = books.filter((book) => book._id !== bookId);
+          setBooks(updatedBooks);
+          alert('Buku telah dihapus');
+        } else {
+          console.error('Gagal menghapus buku');
+        }
       }
     } catch (error) {
       console.error('Error:', error);
@@ -46,16 +53,19 @@ const CardComponent = () => {
               <Card className="movieImage rounded-4">
                 <Image src={book.coverImage} alt={book.coverImage} className="images rounded-top-3" />
                 <div className="bg rounded-bottom-3">
-                  <div className="p-2 m-1 text-white">
+                  <div className=" des p-2 m-1 text-white">
                     <Card.Title className="text-center">{book.judul}</Card.Title>
-                    <Card.Text className="text-center">{book.year}</Card.Text>
+                    <div className="text-center">{book.genre}</div>
+                    <div className="text-center">{book.year}</div>
+                  </div>
+                  <Row>
                     <Card.Text className="text-center tombol">
                       <DetailComponent bookId={book._id} />
-                      <Button className="ms-3" onClick={() => handleDeleteBook(book._id)}>
-                        Hapus
+                      <Button className="ms-2" onClick={() => handleDeleteBook(book._id)}>
+                        <BsFillTrash3Fill /> Hapus
                       </Button>
                     </Card.Text>
-                  </div>
+                  </Row>
                 </div>
               </Card>
             </Col>

@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
+import { BsJournalBookmark } from 'react-icons/bs';
 
 function MydModalWithGrid({ show, onHide, bookId }) {
   const [bookData, setBookData] = useState(null);
@@ -71,9 +72,9 @@ function MydModalWithGrid({ show, onHide, bookId }) {
       });
 
       if (response.ok) {
-        // Handle jika permintaan sukses
-        // Misalnya, tampilkan pesan bahwa perubahan berhasil disimpan
         console.log('Perubahan berhasil disimpan');
+        alert('Perubahan data buku berhasil disimpan');
+        window.location.reload();
       } else {
         // Handle jika permintaan gagal
         console.error('Gagal menyimpan perubahan');
@@ -95,7 +96,7 @@ function MydModalWithGrid({ show, onHide, bookId }) {
               <Row>
                 <Col xs={12} md={2}></Col>
                 <Col xs={6} md={8} className="text-center">
-                  <img src={bookData.coverImage} alt={bookData.judul} />
+                  <img src={bookData.coverImage} alt={bookData.judul} className="img" />
                 </Col>
                 <Col xs={6} md={2}></Col>
               </Row>
@@ -143,7 +144,7 @@ function MydModalWithGrid({ show, onHide, bookId }) {
                   </Form.Label>
                 </Col>
                 <Col xs={6} md={9}>
-                  {isFormEditable ? <Form.Control type="text" defaultValue={bookData.author} /> : <Form.Control plaintext readOnly defaultValue={bookData.author} />}
+                  {isFormEditable ? <Form.Control type="text" name="author" value={formValues.author} onChange={handleInputChange} /> : <Form.Control plaintext readOnly defaultValue={bookData.author} />}
                 </Col>
               </Row>
               <Row>
@@ -158,7 +159,7 @@ function MydModalWithGrid({ show, onHide, bookId }) {
                   </Form.Label>
                 </Col>
                 <Col xs={6} md={9}>
-                  {isFormEditable ? <Form.Control type="text" defaultValue={bookData.publisher} /> : <Form.Control plaintext readOnly defaultValue={bookData.publisher} />}
+                  {isFormEditable ? <Form.Control type="text" name="publisher" value={formValues.publisher} onChange={handleInputChange} /> : <Form.Control plaintext readOnly defaultValue={bookData.publisher} />}
                 </Col>
               </Row>
               <Row>
@@ -173,7 +174,7 @@ function MydModalWithGrid({ show, onHide, bookId }) {
                   </Form.Label>
                 </Col>
                 <Col xs={6} md={9}>
-                  {isFormEditable ? <Form.Control type="text" defaultValue={bookData.year} /> : <Form.Control plaintext readOnly defaultValue={bookData.year} />}
+                  {isFormEditable ? <Form.Control type="text" name="year" value={formValues.year} onChange={handleInputChange} /> : <Form.Control plaintext readOnly defaultValue={bookData.year} />}
                 </Col>
               </Row>
               <Row>
@@ -188,7 +189,7 @@ function MydModalWithGrid({ show, onHide, bookId }) {
                   </Form.Label>
                 </Col>
                 <Col xs={6} md={9}>
-                  {isFormEditable ? <Form.Control type="text" defaultValue={bookData.genre} /> : <Form.Control plaintext readOnly defaultValue={bookData.genre} />}
+                  {isFormEditable ? <Form.Control type="text" name="genre" value={formValues.genre} onChange={handleInputChange} /> : <Form.Control plaintext readOnly defaultValue={bookData.genre} />}
                 </Col>
               </Row>
               <Row>
@@ -203,7 +204,7 @@ function MydModalWithGrid({ show, onHide, bookId }) {
                   </Form.Label>
                 </Col>
                 <Col xs={6} md={9}>
-                  {isFormEditable ? <Form.Control type="text" defaultValue={bookData.pageCount} /> : <Form.Control plaintext readOnly defaultValue={bookData.pageCount} />}
+                  {isFormEditable ? <Form.Control type="text" name="pageCount" value={formValues.pageCount} onChange={handleInputChange} /> : <Form.Control plaintext readOnly defaultValue={bookData.pageCount} />}
                 </Col>
               </Row>
               <Row>
@@ -218,7 +219,11 @@ function MydModalWithGrid({ show, onHide, bookId }) {
                   </Form.Label>
                 </Col>
                 <Col xs={6} md={9}>
-                  {isFormEditable ? <Form.Control as="textarea" defaultValue={bookData.description} rows={3} /> : <Form.Control as="textarea" plaintext readOnly defaultValue={bookData.description} rows={3} />}
+                  {isFormEditable ? (
+                    <Form.Control as="textarea" name="description" value={formValues.description} onChange={handleInputChange} rows={3} />
+                  ) : (
+                    <Form.Control as="textarea" plaintext readOnly defaultValue={bookData.description} rows={3} />
+                  )}
                 </Col>
               </Row>
             </>
@@ -251,7 +256,7 @@ const DetailComponent = ({ bookId }) => {
   return (
     <>
       <Button variant="primary" onClick={() => setModalShow(true)}>
-        Detail
+        <BsJournalBookmark /> Detail
       </Button>
 
       <MydModalWithGrid show={modalShow} onHide={() => setModalShow(false)} bookId={bookId} />

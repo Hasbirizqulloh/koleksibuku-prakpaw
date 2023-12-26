@@ -67,18 +67,28 @@ html {
   height: 180px;
 }
 
+.des {
+  height: 120px;
+}
+
 .images {
   height: 200px;
+}
+
+.img {
+  height: 250px;
 }
 
 .tombol button:nth-child(1) {
   background-color: #3876bf;
   border: none;
+  font-size: 12px;
 }
 
 .tombol button:nth-child(2) {
   background-color: #bb2124;
   border: none;
+  font-size: 12px;
 }
 
 .tombol button:hover {
