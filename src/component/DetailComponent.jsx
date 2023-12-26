@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
+import { Spinner } from 'react-bootstrap';
 import { BsJournalBookmark } from 'react-icons/bs';
 
 function MydModalWithGrid({ show, onHide, bookId }) {
@@ -22,6 +23,7 @@ function MydModalWithGrid({ show, onHide, bookId }) {
     pageCount: '',
     description: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchBookById = async () => {
@@ -61,6 +63,7 @@ function MydModalWithGrid({ show, onHide, bookId }) {
     setIsFormEditable(false);
     setIsCancelButtonVisible(false);
     setIsTitleEditable(false);
+    setIsLoading(true);
 
     try {
       const response = await fetch(`https://api-buku.vercel.app/books/${bookId}`, {
@@ -242,7 +245,7 @@ function MydModalWithGrid({ show, onHide, bookId }) {
           </Button>
         ) : (
           <Button variant="primary" onClick={handleEditClick}>
-            Edit
+            {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Edit'}
           </Button>
         )}
       </Modal.Footer>

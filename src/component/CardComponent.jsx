@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Container, Row, Col, Image, Button } from 'react-bootstrap';
+import { Card, Container, Row, Col, Image, Button, Spinner } from 'react-bootstrap';
 import DetailComponent from './DetailComponent';
 import { BsFillTrash3Fill } from 'react-icons/bs';
 
 const CardComponent = () => {
   const [books, setBooks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -12,8 +13,10 @@ const CardComponent = () => {
         const response = await fetch('https://api-buku.vercel.app/books');
         const data = await response.json();
         setBooks(data);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setIsLoading(false);
       }
     };
 
@@ -21,6 +24,7 @@ const CardComponent = () => {
   }, []);
 
   const handleDeleteBook = async (bookId) => {
+    isLoading;
     try {
       // Ask for confirmation before deleting
       const confirmDelete = window.confirm('Apakah Anda yakin ingin menghapus buku ini?');
@@ -33,6 +37,7 @@ const CardComponent = () => {
         if (response.ok) {
           // Jika penghapusan berhasil, perbarui state dengan buku yang telah dihapus
           const updatedBooks = books.filter((book) => book._id !== bookId);
+          setIsLoading(false);
           setBooks(updatedBooks);
           alert('Buku telah dihapus');
         } else {
@@ -48,6 +53,7 @@ const CardComponent = () => {
     <div>
       <Container>
         <Row className="g-1">
+          {isLoading && <Spinner animation="border" variant="primary" />}
           {books.map((book, index) => (
             <Col md={3} className="movieWrapper" key={book._id}>
               <Card className="movieImage rounded-4">
@@ -62,7 +68,8 @@ const CardComponent = () => {
                     <Card.Text className="text-center tombol">
                       <DetailComponent bookId={book._id} />
                       <Button className="ms-2" onClick={() => handleDeleteBook(book._id)}>
-                        <BsFillTrash3Fill /> Hapus
+                        <BsFillTrash3Fill />
+                        {isLoading ? <Spinner animation="border" variant="danger" /> : ' Hapus'}
                       </Button>
                     </Card.Text>
                   </Row>

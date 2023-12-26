@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
+import { Spinner } from 'react-bootstrap';
 import { BsPlusCircle } from 'react-icons/bs';
 
 function MydModalWithGrid(props) {
@@ -20,12 +21,15 @@ function MydModalWithGrid(props) {
     coverImage: '',
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewBook({ ...newBook, [name]: value });
   };
 
   const handleAddBook = async () => {
+    setLoading(true);
     try {
       const response = await fetch('https://api-buku.vercel.app/books', {
         method: 'POST',
@@ -123,7 +127,7 @@ function MydModalWithGrid(props) {
         </Container>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleAddBook}>Tambah</Button>
+        <Button onClick={handleAddBook}>{loading ? <Spinner animation="border" variant="primary" /> : 'Tambah'}</Button>
         <Button onClick={props.onHide}>Close</Button>
       </Modal.Footer>
     </Modal>
